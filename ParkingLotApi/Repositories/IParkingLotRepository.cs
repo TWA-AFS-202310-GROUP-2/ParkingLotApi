@@ -10,4 +10,5 @@ public interface IParkingLotRepository
     Task<List<ParkingLot>> GetAllAsync();
     Task<ParkingLot> UpdateAsync(string id, ParkingLot parkingLot);
     Task DeleteByNameAsync(string name);
+    Task DeleteByIdAsync(string id);
 }

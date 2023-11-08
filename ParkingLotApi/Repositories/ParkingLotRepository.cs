@@ -31,7 +31,8 @@ namespace ParkingLotApi.Repositories
 
         public async Task<ParkingLot> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            ParkingLot parkingLot = await parkingLotCollection.Find(parkingLot => parkingLot.Id == id).FirstOrDefaultAsync();
+            return parkingLot;
         }
 
         public async Task<List<ParkingLot>> GetAllAsync()
@@ -47,6 +48,11 @@ namespace ParkingLotApi.Repositories
         public async Task DeleteByNameAsync(string name)
         {
             await parkingLotCollection.DeleteOneAsync(parkingLot => parkingLot.Name == name);
+        }
+
+        public async Task DeleteByIdAsync(string id)
+        {
+            await parkingLotCollection.DeleteOneAsync(parkingLot => parkingLot.Id == id);
         }
     }
 }

@@ -29,10 +29,13 @@ namespace ParkingLotApi.Services
             return await this.ParkingLotRepository.AddAsync(parkingLot);
         }
 
-        public async Task DeleteParkingLot(string name)
+        public async Task DeleteParkingLot(string id)
         {
-            ParkingLot parkingLot = await this.ParkingLotRepository.GetByNameAsync(name) ?? throw new ParkingLotNotFoundException();
-            await this.ParkingLotRepository.DeleteByNameAsync(parkingLot.Name);
+            if (await this.ParkingLotRepository.GetByIdAsync(id) == null)
+            {
+                throw new ParkingLotNotFoundException();
+            }
+            await this.ParkingLotRepository.DeleteByIdAsync(id);
         }
     }
 }
