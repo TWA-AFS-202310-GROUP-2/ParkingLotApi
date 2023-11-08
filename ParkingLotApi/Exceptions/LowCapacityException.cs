@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace ParkingLotApi.Services
+namespace ParkingLotApi.Exceptions
 {
     [Serializable]
     internal class LowCapacityException : Exception
