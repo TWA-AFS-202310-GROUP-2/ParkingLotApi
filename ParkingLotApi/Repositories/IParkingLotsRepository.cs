@@ -10,5 +10,5 @@ public interface IParkingLotsRepository
     public Task<List<ParkingLot>> GetAllParkingLots();
     public Task DeleteParkingLotByName(string parkingLotName);
     public Task<List<ParkingLot>> GetParkingLotsByPageIndex(int pageIndex, int pageSize = 15);
-
+    public Task<ParkingLot?> GetParkingLotsById(string id);
 }

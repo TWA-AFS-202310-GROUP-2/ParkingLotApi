@@ -42,5 +42,10 @@ public class ParkingLotsRepository : IParkingLotsRepository
         return _dbCollection.Find(_ => true).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToListAsync();
     }
 
+    public Task<ParkingLot> GetParkingLotsById(string parkingLotId)
+    {
+        return _dbCollection.Find(doc=>doc.Id ==parkingLotId).FirstOrDefaultAsync();
+    }
+
 
 }

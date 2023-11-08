@@ -27,16 +27,37 @@ namespace ParkingLotApi.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteParkingLot(string parkingLotName)
         {
-            await _parkingLotsService.DeleteByNameAsync(parkingLotName);
-            return StatusCode(StatusCodes.Status204NoContent);
+            try
+            {
+                await _parkingLotsService.DeleteByNameAsync(parkingLotName);
+                return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (NoParkingLotException ex)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
         }
 
         [HttpGet]
-        [Route("pageIndex")]
-        public async Task<ActionResult<List<ParkingLot>>> GetParkingLotByPagesize(int pageIndex, int pageSize=15)
+        public async Task<ActionResult<List<ParkingLot>>> GetParkingLotByPagesize([FromQuery]int pageIndex, [FromQuery]int pageSize=15)
         {
             return StatusCode(StatusCodes.Status200OK,
                 await _parkingLotsService.GetParkingLotListByPageIndex(pageIndex, pageSize));
         }
+
+        [HttpGet]
+        [Route("id")]
+        public async Task<ActionResult<ParkingLot>> GetParkingLotById(string id)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.GetParkingLotListById(id));
+            }
+            catch (NoParkingLotException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+        }
+
     }
 }

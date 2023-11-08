@@ -42,4 +42,14 @@ public class ParkingLotsService
     {
         return await _parkingLotsRepository.GetParkingLotsByPageIndex(pageIndex, pageSize);
     }
+
+    public async Task<ParkingLot> GetParkingLotListById(string id)
+    {
+        var parkingLot = await _parkingLotsRepository.GetParkingLotsById(id);
+        if (parkingLot == null)
+        {
+            throw new NoParkingLotException();
+        }
+        return parkingLot;
+    }
 }
