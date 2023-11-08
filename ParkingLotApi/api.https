@@ -1,0 +1,21 @@
+﻿AC1:
+URL: /api/parkinglots/
+
+Method: POST ParkingLot CreateParkingLot(ParkingLot parkingLot)
+
+Request Body:
+{
+	"name":"myParkingLot",
+	"capacity": 20,
+	"location":"My house"
+}
+
+Response Code: 400(capacity<10||name exists),201(success)
+
+Response Body:
+{
+    "id":"string",
+	"name":"string",
+	"capacity":"int",
+	"location":"string"
+}

@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using ParkingLotApi;
 
-namespace ParkingLotApiTest.NewFolder
+namespace ParkingLotApiTest.ControllersTest
 {
-    public class WeatherForecastControllerTest
+    public class WeatherForecastControllerTest: TestBase
     {
         private HttpClient _httpClient;
-        public WeatherForecastControllerTest()
+        public WeatherForecastControllerTest(WebApplicationFactory<Program> factory):base(factory)
         {
-            var factory = new WebApplicationFactory<Program>();
-            _httpClient = factory.CreateClient();
+            _httpClient = GetClient();
         }
 
         [Fact]
