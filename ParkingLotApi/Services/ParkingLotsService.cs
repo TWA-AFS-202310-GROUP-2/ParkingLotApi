@@ -1,4 +1,5 @@
-﻿using ParkingLotApi.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using ParkingLotApi.Dtos;
 using ParkingLotApi.Exceptions;
 using ParkingLotApi.Models;
 using ParkingLotApi.Repositories;
@@ -19,6 +20,11 @@ namespace ParkingLotApi.Services
                 throw new InvalidCapacityException("Invalid capacity exception.");
             }
             return await parkingRepository.CreateParkingLot(parkingLotDto.ToEntity());
+        }
+
+        public async Task DeleteAsync(string name)
+        {
+            await parkingRepository.DeleteParkingLot(name);
         }
     }
 }
