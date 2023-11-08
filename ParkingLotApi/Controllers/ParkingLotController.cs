@@ -30,7 +30,7 @@ namespace ParkingLotApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ParkingLot>> Get(int? pageSize, int? pageIndex)
+        public async Task<ActionResult<List<ParkingLot>>> Get(int? pageSize, int? pageIndex)
         {
             if (pageSize != null && pageIndex != null)
             {
@@ -42,7 +42,19 @@ namespace ParkingLotApi.Controllers
             }
         }
 
-
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ParkingLot>> GetById(string id)
+        {
+            var parkingLot = await parkingLotService.GetById(id);
+            if (parkingLot != null)
+            {
+                return Ok(parkingLot);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
     }
 }

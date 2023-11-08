@@ -6,7 +6,7 @@
         Task DeleteParkingLot(string parkingLotId);
         Task<List<ParkingLot>> GetPage(int pageSize, int pageIndex);
         Task<List<ParkingLot>> GetAll();
-
+        Task<ParkingLot> GetById(string parkingLotId);
 
     }
 }
