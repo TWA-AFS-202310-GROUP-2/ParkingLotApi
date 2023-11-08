@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ParkingLotApiTest
 {
-        public class TestBase : IClassFixture<WebApplicationFactory<Program>>
+    public class TestBase : IClassFixture<WebApplicationFactory<Program>>
     {
         public TestBase(WebApplicationFactory<Program> factory)
         {
