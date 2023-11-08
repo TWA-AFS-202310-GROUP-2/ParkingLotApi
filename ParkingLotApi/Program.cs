@@ -4,7 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+// global exception filter
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<InvalidCapacityExceptionFilter>();
+});
 builder.Services.AddScoped<ParkingLotService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

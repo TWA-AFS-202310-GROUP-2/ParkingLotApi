@@ -19,14 +19,14 @@ namespace ParkingLotApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ParkingLot>> Add(ParkingLotRequest parkingLotRequest)
         {
-            try
-            {
+            //try
+            //{
                 return Created("", await parkingLotService.Add(parkingLotRequest));
-            }
-            catch (InvalidCapacityException ex)
-            {
-                return BadRequest();
-            }
+            //}
+            //catch (InvalidCapacityException ex)
+            //{
+            //    return BadRequest();
+            //}
         }
 
     }
