@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using ParkingLotApi.Models;
+using System.Globalization;
 
 namespace ParkingLotApi.Repositories
 {
@@ -25,6 +26,11 @@ namespace ParkingLotApi.Repositories
         public async Task DeleteParkingLot(string name)
         {
             await _parkingLotCollection.DeleteOneAsync(e => e.Name == name);
+        }
+
+        public async Task<List<ParkingLot>> GetParkingLot(int pageIndex)
+        {
+            return await _parkingLotCollection.Find(_ => true).Skip(pageIndex * 15).Limit(15).ToListAsync();
         }
     }
 }

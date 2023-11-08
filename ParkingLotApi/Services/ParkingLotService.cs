@@ -31,5 +31,9 @@ namespace ParkingLotApi.Services
         {
             await parkingLotsRepository.DeleteParkingLot(name);
         }
+        public async Task<List<ParkingLot>> GetAsync(int pageIndex)
+        {
+            return await parkingLotsRepository.GetParkingLot(pageIndex);
+        }
     }
 }

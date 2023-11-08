@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ParkingLotApi.Dtos;
 using ParkingLotApi.Exceptions;
+using ParkingLotApi.Models;
 using ParkingLotApi.Services;
 using System.Net;
 
@@ -11,7 +12,7 @@ namespace ParkingLotApi.Controllers
     public class ParkingLotsController : ControllerBase
     {
         private readonly ParkingLotService _parkingLotService;
-        public ParkingLotsController(ParkingLotService parkingLotService) 
+        public ParkingLotsController(ParkingLotService parkingLotService)
         {
             this._parkingLotService = parkingLotService;
         }
@@ -32,6 +33,13 @@ namespace ParkingLotApi.Controllers
         {
             await _parkingLotService.DeleteAsync(name);
             return StatusCode(StatusCodes.Status204NoContent);
+        }
+
+        [HttpGet("{pageIndex}")]
+        public async Task<ActionResult<List<ParkingLot>>> GetParkingLot(int pageIndex)
+        {
+            var res = await _parkingLotService.GetAsync(pageIndex - 1);
+            return StatusCode(StatusCodes.Status200OK, res);
         }
     }
 }
