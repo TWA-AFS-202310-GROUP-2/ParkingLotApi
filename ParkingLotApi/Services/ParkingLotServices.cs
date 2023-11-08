@@ -25,7 +25,12 @@ namespace ParkingLotApi.Services
 
         public async Task<ParkingLot?> GetByIdAsync (string id)
         {
-            return await _parkingLotRerository.GetParkingLotById(id);
+            var result = await _parkingLotRerository.GetParkingLotById(id);
+            if (result == null)
+            {
+                throw new NotParkingLotofIdException();
+            }
+            return result;
         }
 
         public async Task<ActionResult<ParkingLot?>> DeleteAsync(string id)

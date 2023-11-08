@@ -26,7 +26,6 @@ namespace ParkingLotApi.Repositories
         public async Task<ParkingLot?> GetParkingLotById(string id)
         {
             var parkingLotById = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-            if (parkingLotById is null) { return null; }
             return parkingLotById;
         }
         public async Task<ParkingLot?> DeleteParkingLot(string id)

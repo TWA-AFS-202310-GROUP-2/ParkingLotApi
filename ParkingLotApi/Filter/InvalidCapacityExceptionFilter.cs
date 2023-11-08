@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ParkingLotApi.Exceptions;
 
@@ -10,6 +11,11 @@ public class InvalidCapacityExceptionFilter : IActionFilter, IOrderedFilter
         if (context.Exception is InvalidCapacityException)
         {
             context.Result = new BadRequestResult();
+            context.ExceptionHandled = true;
+        }
+        else if(context.Exception is NotParkingLotofIdException)
+        {
+            context.Result = new NotFoundResult();
             context.ExceptionHandled = true;
         }
     }

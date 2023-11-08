@@ -28,17 +28,5 @@ namespace ParkingLotApi.Controllers
         {
             return await _parkingLotservices.GetByIdAsync(id);
         }
-
-        [HttpDelete]
-        public async Task<ActionResult<ParkingLot?>> DeleteParkingLot(string id)
-        {
-            return await _parkingLotservices.DeleteAsync(id);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<ParkingLot?>> ReplaceParkingLotAsync(string id, int newCapacity)
-        {
-            return await _parkingLotservices.ReplaceAsync(id, newCapacity);
-        }
     }
 }
