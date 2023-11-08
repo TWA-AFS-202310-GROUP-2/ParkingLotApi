@@ -28,6 +28,7 @@ namespace ParkingLotApi.Controllers
         {
             return await _parkingLotservices.GetByIdAsync(id);
         }
+
         [HttpGet("{pageIndex}/{pageSize}")]
         public async Task<ActionResult<List<ParkingLot>>> GetByPageAsync(int pageIndex, int pageSize)
         {
@@ -38,6 +39,12 @@ namespace ParkingLotApi.Controllers
                 await _parkingLotservices.CreateAsync(parkingLotDto);
             }
             return StatusCode(StatusCodes.Status200OK, await _parkingLotservices.GetByPageAsync(pageIndex, pageSize));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ParkingLot?>> ReplaceParkingLotAsync(string id, int newCapacity)
+        {
+            return await _parkingLotservices.ReplaceAsync(id, newCapacity);
         }
     }
 }

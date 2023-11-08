@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using ParkingLotApi.Dtos;
+using ParkingLotApi.Exceptions;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -39,7 +40,7 @@ namespace ParkingLotApi.Repositories
             var parkingLotBefore = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             if (parkingLotBefore == null)
             {
-                return null;
+                throw new NotParkingLotofIdException();
             }
             parkingLotBefore.Capacity = newCapacity;
             await _parkingLotCollection.ReplaceOneAsync(x => x.Id == id, parkingLotBefore);
