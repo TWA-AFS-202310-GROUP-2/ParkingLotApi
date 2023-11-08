@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace ParkingLotApiTest.Controller
 {
-    public class WeatherForecastControllerTest
+    public class WeatherForecastControllerTest : TestBase
     {
-        private readonly HttpClient _httpClient;
-        public WeatherForecastControllerTest()
+        public WeatherForecastControllerTest(WebApplicationFactory<Program> factory):base(factory)
         {
-            WebApplicationFactory<Program> webApplicationFactory = new WebApplicationFactory<Program>();
-            _httpClient = webApplicationFactory.CreateClient();
         }
+        
         [Fact]
         public async void Should_return_correct_When_whetherForcast_Given_date()
         {
             //given & when
+            HttpClient _httpClient = GetClient();//继承自他的父类
             HttpResponseMessage responseMessage = await _httpClient.GetAsync("/WeatherForecast");
             //then
             Assert.Equal(HttpStatusCode.OK, responseMessage.StatusCode);
