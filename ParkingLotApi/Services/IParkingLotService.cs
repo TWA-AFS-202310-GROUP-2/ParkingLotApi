@@ -8,5 +8,6 @@
         Task<List<ParkingLot>> GetAll();
         Task<ParkingLot> GetById(string parkingLotId);
         Task UpdateParkingLot(string parkingLotId, ParkingLotUpdate parkingLotUpdate);
+        Task<ParkingLot> GetByName(string name);
     }
 }

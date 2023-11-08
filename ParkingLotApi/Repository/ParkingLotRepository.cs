@@ -34,6 +34,11 @@ namespace ParkingLotApi.Repository
             return await parkingLotCollection.Find(_=>_.Id == parkingLotId).FirstOrDefaultAsync();
         }
 
+        public async Task<ParkingLot> GetByName(string name)
+        {
+            return await parkingLotCollection.Find(_=>_.Name == name).FirstOrDefaultAsync();
+        }
+
         public async Task<List<ParkingLot>> GetPage(int pageSize, int pageIndex)
         {
             int skip = (pageIndex - 1) * pageSize;

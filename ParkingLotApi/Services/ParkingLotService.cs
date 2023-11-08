@@ -17,6 +17,11 @@ namespace ParkingLotApi.Services
             {
                 throw new InvalidCapacityException("Capacity cannot less than 10");
             }
+            var existed = await parkingLotRepository.GetByName(parkingLotRequest.Name);
+            if (existed != null)
+            {
+                throw new DuplicatedNameException("Name cannot be duplicated");
+            }
             return await parkingLotRepository.AddParkingLot(parkingLotRequest.ToParkingLot());
         }
 
@@ -38,6 +43,11 @@ namespace ParkingLotApi.Services
                 throw new ParkingLotNotFoundException();
             }
             return parkingLot;
+        }
+
+        public async Task<ParkingLot> GetByName(string name)
+        {
+            return await parkingLotRepository.GetByName(name);
         }
 
         public async Task<List<ParkingLot>> GetPage(int pageSize, int pageIndex)

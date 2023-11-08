@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ParkingLotApi.Services
@@ -19,6 +20,17 @@ namespace ParkingLotApi.Services
                 context.Result = new NotFoundResult();
                 context.ExceptionHandled = true;
             }
+            if (context.Exception is DuplicatedNameException)
+            {
+                context.Result = new BadRequestResult();
+                context.ExceptionHandled = true;
+            }
+            if (context.Exception is FormatException)
+            {
+                context.Result = new NotFoundResult();
+                context.ExceptionHandled = true;
+            }
+
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
