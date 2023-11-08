@@ -15,6 +15,21 @@ namespace ParkingLotApi.Filter
                 context.Result = new BadRequestResult();
                 context.ExceptionHandled = true;
             }
+            else if (context.Exception is ExistingNameException)
+            {
+                context.Result = new ConflictResult();
+                context.ExceptionHandled = true;
+            }
+            else if (context.Exception is NoParkingLotException)
+            {
+                context.Result = new NotFoundResult();
+                context.ExceptionHandled = true;
+            }
+            else if(context.Exception is FormatException)
+            {
+                context.Result = new NotFoundResult();
+                context.ExceptionHandled = true;
+            }
         }
 
         public void OnActionExecuting(ActionExecutingContext context)

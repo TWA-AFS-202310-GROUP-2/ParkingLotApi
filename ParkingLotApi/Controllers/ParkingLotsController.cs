@@ -27,40 +27,25 @@ namespace ParkingLotApi.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteParkingLot(string parkingLotName)
         {
-            try
-            {
-                await _parkingLotsService.DeleteByNameAsync(parkingLotName);
-                return StatusCode(StatusCodes.Status204NoContent);
-            }
-            catch (NoParkingLotException ex)
-            {
-                return StatusCode(StatusCodes.Status404NotFound);
-            }
+
+            await _parkingLotsService.DeleteByNameAsync(parkingLotName);
+            return StatusCode(StatusCodes.Status204NoContent);
+
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ParkingLot>>> GetParkingLotByPagesize([FromQuery]int pageIndex, [FromQuery]int pageSize=15)
         {
-            return StatusCode(StatusCodes.Status200OK,
-                await _parkingLotsService.GetParkingLotListByPageIndex(pageIndex, pageSize));
+            return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.GetParkingLotListByPageIndex(pageIndex, pageSize));
         }
 
         [HttpGet]
         [Route("id")]
         public async Task<ActionResult<ParkingLot>> GetParkingLotById(string id)
         {
-            try
-            {
-                return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.GetParkingLotById(id));
-            }
-            catch (NoParkingLotException e)
-            {
-                return StatusCode(StatusCodes.Status404NotFound);
-            }
-            catch (FormatException e)
-            {
-                return StatusCode(StatusCodes.Status404NotFound);
-            }
+
+            return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.GetParkingLotById(id));
+
         }
 
         [HttpPut]
