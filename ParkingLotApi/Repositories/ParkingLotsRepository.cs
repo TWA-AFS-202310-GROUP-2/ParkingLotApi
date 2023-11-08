@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using ParkingLotApi.Exceptions;
 using ParkingLotApi.Models;
 using System.Globalization;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -20,8 +21,13 @@ namespace ParkingLotApi.Repositories
 
         public async Task<ParkingLot> CreateParkingLot(ParkingLot parkingLot) 
         {
-            await _parkingLotCollection.InsertOneAsync(parkingLot);
-            return await _parkingLotCollection.Find(a => a.Name == parkingLot.Name).FirstAsync();
+            var res = await _parkingLotCollection.Find(a => a.Name == parkingLot.Name).FirstOrDefaultAsync();
+            if(res == null)
+            {
+                await _parkingLotCollection.InsertOneAsync(parkingLot);
+                return await _parkingLotCollection.Find(a => a.Name == parkingLot.Name).FirstOrDefaultAsync();
+            }
+            return null;
         }
 
         public async Task DeleteParkingLot(string name)
@@ -36,12 +42,17 @@ namespace ParkingLotApi.Repositories
 
         public async Task<ParkingLot> GetParkingLotById(string id)
         {
-            return await _parkingLotCollection.Find(e => e.Id == id).FirstAsync();
+            return await _parkingLotCollection.Find(e => e.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<ParkingLot> PutParkingLot(string id, int capacity)
         {
             var findParkingLot = await _parkingLotCollection.Find(u => u.Id == id).FirstOrDefaultAsync();
+            if(findParkingLot == null)
+            {
+                return null;
+            }
+
             findParkingLot.Capacity = capacity;
 
             var options = new FindOneAndReplaceOptions<ParkingLot>

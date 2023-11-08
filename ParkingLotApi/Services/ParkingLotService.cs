@@ -20,12 +20,13 @@ namespace ParkingLotApi.Services
             {
                 throw new InvalidCapacityException();
             }
+
             var res = await parkingLotsRepository.CreateParkingLot(parkingLotDto.ToEntity());
-            if (res != null)
+            if (res == null)
             {
-                 return res;
+                throw new ExistingNameException(parkingLotDto.Name + "already existing.");
             }
-            throw new ExistingNameException();
+            return res;
         }
         public async Task DeleteAsync(string name)
         {
@@ -38,12 +39,22 @@ namespace ParkingLotApi.Services
 
         public async Task<ParkingLot> GetByIdAsync(string id)
         {
-            return await parkingLotsRepository.GetParkingLotById(id);
+            var res = await parkingLotsRepository.GetParkingLotById(id);
+            if (res != null)
+            {
+                return res;
+            }
+            throw new NoExistIdException();
         }
 
         public async Task<ParkingLot> PutAsync(string id, int capacity)
         {
-            return await parkingLotsRepository.PutParkingLot(id, capacity);
+            var res = await parkingLotsRepository.PutParkingLot(id, capacity);
+            if (res != null)
+            {
+                return res;
+            }
+            throw new NoExistIdException();
         }
     }
 }
