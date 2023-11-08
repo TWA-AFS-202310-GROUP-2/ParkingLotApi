@@ -4,5 +4,9 @@
     {
         Task<ParkingLot> AddParkingLot(ParkingLotRequest parkingLotRequest);
         Task DeleteParkingLot(string parkingLotId);
+        Task<List<ParkingLot>> GetPage(int pageSize, int pageIndex);
+        Task<List<ParkingLot>> GetAll();
+
+
     }
 }

@@ -22,6 +22,4 @@ Content-Type: application/json; charset=utf-8
 DELETE https://{{hostname}}:{{port}}/api/v1/parkinglots/{name}
 Content-Type: application/json; charset=utf-8
 
-### Response:
-### Case1: Sucess, 204 NO Content
-### Case2: 404 not found
+### Response: Sucess, 204 NO Content

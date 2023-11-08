@@ -20,9 +20,19 @@ namespace ParkingLotApi.Services
             return await parkingLotRepository.AddParkingLot(parkingLotRequest.ToParkingLot());
         }
 
-        public async Task DeleteParkingLot(string parkingLotName)
+        public async Task DeleteParkingLot(string parkingLotId)
         {
-            await parkingLotRepository.DeleteParkingLot(parkingLotName);
+            await parkingLotRepository.DeleteParkingLot(parkingLotId);
+        }
+
+        public async Task<List<ParkingLot>> GetAll()
+        {
+            return await parkingLotRepository.Get();
+        }
+
+        public async Task<List<ParkingLot>> GetPage(int pageSize, int pageIndex)
+        {
+            return await parkingLotRepository.GetPage(pageSize, pageIndex);
         }
     }
 }
