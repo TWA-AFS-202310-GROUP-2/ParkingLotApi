@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ParkingLotApi.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParkingLotApi.Dtos
 {
@@ -8,6 +9,15 @@ namespace ParkingLotApi.Dtos
         public string Name { get; set; }
         public int Capacity { get; set; }
         public string Location { get; set; }
-        
+
+        public ParkingLot ToEntity()
+        {
+            return new ParkingLot()
+            {
+                Name = Name,
+                Capacity = Capacity,
+                Location = Location
+            };
+        }
     }
 }
