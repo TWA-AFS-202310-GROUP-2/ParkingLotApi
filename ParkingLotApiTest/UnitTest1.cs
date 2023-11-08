@@ -1,11 +1,18 @@
+using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net;
+
 namespace ParkingLotApiTest
 {
-    public class UnitTest1
+    public class WeatherForcastControllerTest : TestBase
     {
-        [Fact]
-        public void Test1()
-        {
+        public WeatherForcastControllerTest(WebApplicationFactory<Program> factory) : base(factory) { }
 
+        [Fact]
+        public async Task Test1()
+        {
+            HttpClient httpClient = GetClient();
+            HttpResponseMessage response = await httpClient.GetAsync("/WeatherForecast");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
