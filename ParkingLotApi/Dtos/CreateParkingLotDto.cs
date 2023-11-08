@@ -5,6 +5,7 @@ namespace ParkingLotApi.Dtos
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         [Range(10, 1000, ErrorMessage = "Capacity should be between 10 and 1000")]
         public int Capacity { get; set; }
         [Required]

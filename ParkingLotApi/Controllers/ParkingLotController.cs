@@ -18,7 +18,7 @@ namespace ParkingLotApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ParkingLot>> CreateParkingLot(CreateParkingLotDto createParkingLotDto)
+        public async Task<ActionResult<ParkingLot>> CreateParkingLot([FromBody] CreateParkingLotDto createParkingLotDto)
         {
             return await _parkinglotService.AddParkingLot(createParkingLotDto);
         }
@@ -40,6 +40,12 @@ namespace ParkingLotApi.Controllers
         public async Task<ActionResult<ParkingLot>> GetParkingLotById(string id)
         {
             return await _parkinglotService.GetParkingLotById(id);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ParkingLot>> UpdateParkingLot(string id, [FromBody] UpdateParkingLotDto updateParkingLotDto)
+        {
+            return await _parkinglotService.UpdateParkingLot(id, updateParkingLotDto);
         }
 
     }

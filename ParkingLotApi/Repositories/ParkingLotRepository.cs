@@ -47,7 +47,8 @@ namespace ParkingLotApi.Repositories
 
         public async Task<ParkingLot> UpdateAsync(string id, ParkingLot parkingLot)
         {
-            throw new NotImplementedException();
+            await parkingLotCollection.ReplaceOneAsync(parkingLot => parkingLot.Id == id, parkingLot);
+            return parkingLot;
         }
 
         public async Task DeleteByNameAsync(string name)
