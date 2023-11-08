@@ -9,9 +9,9 @@ namespace ParkingLotApi.Controllers
     public class ParkingLotController : ControllerBase
     {
 
-        private readonly ParkingLotService parkingLotService;
+        private readonly IParkingLotService parkingLotService;
 
-        public ParkingLotController(ParkingLotService parkingLotService)
+        public ParkingLotController(IParkingLotService parkingLotService)
         {
             this.parkingLotService = parkingLotService;
         }
@@ -19,14 +19,7 @@ namespace ParkingLotApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ParkingLot>> Add(ParkingLotRequest parkingLotRequest)
         {
-            //try
-            //{
-                return Created("", await parkingLotService.Add(parkingLotRequest));
-            //}
-            //catch (InvalidCapacityException ex)
-            //{
-            //    return BadRequest();
-            //}
+            return Created("", await parkingLotService.AddParkingLot(parkingLotRequest));
         }
 
     }

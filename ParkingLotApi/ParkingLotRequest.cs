@@ -11,5 +11,15 @@ namespace ParkingLotApi
         public int Capacity { get; set; }
 
         public string Location { get; set; }
+
+        public ParkingLot ToParkingLot()
+        {
+            return new ParkingLot()
+            {
+                Name = this.Name,
+                Capacity = this.Capacity,
+                Location = this.Location,
+            };
+        }
     }
 }

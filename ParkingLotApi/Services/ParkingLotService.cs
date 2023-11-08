@@ -1,14 +1,23 @@
-﻿namespace ParkingLotApi.Services
+﻿using ParkingLotApi.Repository;
+
+namespace ParkingLotApi.Services
 {
-    public class ParkingLotService
+    public class ParkingLotService : IParkingLotService
     {
-        public async Task<ParkingLot> Add(ParkingLotRequest parkingLotRequest)
+        private readonly IParkingLotRepository parkingLotRepository;
+
+        public ParkingLotService(IParkingLotRepository parkingLotRepository)
+        {
+            this.parkingLotRepository = parkingLotRepository;
+        }
+
+        public async Task<ParkingLot> AddParkingLot(ParkingLotRequest parkingLotRequest)
         {
             if (parkingLotRequest.Capacity < 10)
             {
-                throw new InvalidCapacityException("");
+                throw new InvalidCapacityException("Capacity cannot less than 10");
             }
-            return new ParkingLot();
+            return await parkingLotRepository.AddParkingLot(parkingLotRequest.ToParkingLot());
         }
     }
 }
