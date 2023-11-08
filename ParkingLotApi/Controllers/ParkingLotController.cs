@@ -46,14 +46,15 @@ namespace ParkingLotApi.Controllers
         public async Task<ActionResult<ParkingLot>> GetById(string id)
         {
             var parkingLot = await parkingLotService.GetById(id);
-            if (parkingLot != null)
-            {
-                return Ok(parkingLot);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(parkingLot);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ParkingLot>> UpdateById(string id,ParkingLotUpdate parkingLotUpdate)
+        {
+            var parkingLotFind = await parkingLotService.GetById(id);
+            await parkingLotService.UpdateParkingLot(id,parkingLotUpdate);
+            return Ok(await parkingLotService.GetById(parkingLotFind.Id));
         }
 
     }

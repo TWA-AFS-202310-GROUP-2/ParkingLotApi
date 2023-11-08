@@ -40,6 +40,12 @@ namespace ParkingLotApi.Repository
             return await parkingLotCollection.Find(_ => true).Skip(skip).Limit(pageSize).ToListAsync();
         }
 
+        public async Task UpdateParkingLot(string parkingLotId, ParkingLotUpdate parkingLotUpdate)
+        {
+            var filter = Builders<ParkingLot>.Filter.Eq(p => p.Id, parkingLotId);
+            var update = Builders<ParkingLot>.Update.Set(p => p.Capacity, parkingLotUpdate.Capacity);
 
+            await parkingLotCollection.UpdateOneAsync(filter, update);
+        }
     }
 }

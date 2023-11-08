@@ -32,12 +32,26 @@ namespace ParkingLotApi.Services
 
         public async Task<ParkingLot> GetById(string parkingLotId)
         {
-            return await parkingLotRepository.GetById(parkingLotId);
+            var parkingLot = await parkingLotRepository.GetById(parkingLotId);
+            if (parkingLot == null)
+            {
+                throw new ParkingLotNotFoundException();
+            }
+            return parkingLot;
         }
 
         public async Task<List<ParkingLot>> GetPage(int pageSize, int pageIndex)
         {
             return await parkingLotRepository.GetPage(pageSize, pageIndex);
+        }
+
+        public async Task UpdateParkingLot(string parkingLotId, ParkingLotUpdate parkingLotUpdate)
+        {
+            if (parkingLotUpdate.Capacity < 10)
+            {
+                throw new InvalidCapacityException("Capacity cannot less than 10");
+            }
+            await parkingLotRepository.UpdateParkingLot(parkingLotId, parkingLotUpdate);
         }
     }
 }
