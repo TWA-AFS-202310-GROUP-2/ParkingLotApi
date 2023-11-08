@@ -41,10 +41,18 @@ namespace ParkingLotApi.Controllers
             return await _parkingLotsService.CheckPageIndexAsync(pageIndex);
         }
 
-        [HttpGet("{parkingLotName}")]
-        public async Task<ParkingLot> GetOneParkingLotAsync(string parkingLotName)
+        [HttpGet("{parkingLotId}")]
+        public async Task<ParkingLot> GetOneParkingLotAsync(string parkingLotId)
         {
-            return await _parkingLotsService.GetOneParkingLotAsync(parkingLotName);
+            return await _parkingLotsService.GetOneParkingLotAsync(parkingLotId);
+        }
+
+        [HttpPut("{parkingLotId}")]
+        public async Task<ActionResult<ParkingLot>> UpdateOneParkingLotCapacityAsync(string parkingLotId, ParkingLotUpdate parkingLotUpdate)
+        {
+            var parkingLotFind = await _parkingLotsService.GetOneParkingLotAsync(parkingLotId);
+            await _parkingLotsService.UpdateOneParkingLotAsync(parkingLotId, parkingLotUpdate);
+            return Ok(await _parkingLotsService.GetOneParkingLotAsync(parkingLotFind.Id));
         }
     }
 }

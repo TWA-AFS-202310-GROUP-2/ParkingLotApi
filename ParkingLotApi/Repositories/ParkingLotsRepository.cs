@@ -31,9 +31,16 @@ namespace ParkingLotApi.Repositories
             return await _parkingLotCollection.Find(_ => true).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToListAsync();
         }
 
-        public async Task<ParkingLot> GetOneParkingLot(string parkingLotName)
+        public async Task<ParkingLot> GetOneParkingLot(string parkingLotId)
         {
-            return await _parkingLotCollection.Find(a => a.Name == parkingLotName).FirstOrDefaultAsync();
+            return await _parkingLotCollection.Find(a => a.Id == parkingLotId).FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateOneParkingLot(string parkingLotId, ParkingLotUpdate parkingLotUpdate)
+        {
+            var filter = Builders<ParkingLot>.Filter.Eq(p => p.Id, parkingLotId);
+            var update = Builders<ParkingLot>.Update.Set(p => p.Capacity, parkingLotUpdate.Capacity);
+            await _parkingLotCollection.UpdateOneAsync(filter, update);
         }
 
     }
