@@ -31,4 +31,10 @@ public class ParkingLotsRepository : IParkingLotsRepository
     {
         return await _dbCollection.Find(_ => true).ToListAsync();
     }
+
+    public Task DeleteParkingLotByName(string parkingLotName)
+    {
+        return _dbCollection.DeleteOneAsync(doc => doc.Name == parkingLotName);
+    }
+
 }

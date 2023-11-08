@@ -27,4 +27,14 @@ public class ParkingLotsService
         }
         return await _parkingLotsRepository.CreateParkingLot(parkingLotDto.ToEntity());
     }
+
+    public async Task DeleteByNameAsync(string parkingLotName)
+    {
+        if (await _parkingLotsRepository.GetParkingLotByName(parkingLotName) == null)
+        {
+            throw new NoParkingLotException();
+        }
+
+        await _parkingLotsRepository.DeleteParkingLotByName(parkingLotName);
+    }
 }
