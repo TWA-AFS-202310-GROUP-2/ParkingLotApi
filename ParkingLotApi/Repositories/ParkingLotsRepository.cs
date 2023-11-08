@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using ParkingLotApi.Models;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ParkingLotApi.Repositories
 {
@@ -36,6 +37,19 @@ namespace ParkingLotApi.Repositories
         public async Task<ParkingLot> GetParkingLotById(string id)
         {
             return await _parkingLotCollection.Find(e => e.Id == id).FirstAsync();
+        }
+
+        public async Task<ParkingLot> PutParkingLot(string id, int capacity)
+        {
+            var findParkingLot = await _parkingLotCollection.Find(u => u.Id == id).FirstOrDefaultAsync();
+            findParkingLot.Capacity = capacity;
+
+            var options = new FindOneAndReplaceOptions<ParkingLot>
+            {
+                ReturnDocument = ReturnDocument.After
+            };
+            var up = await _parkingLotCollection.FindOneAndReplaceAsync<ParkingLot>(u => u.Id == findParkingLot.Id, findParkingLot, options);
+            return up;
         }
     }
 }

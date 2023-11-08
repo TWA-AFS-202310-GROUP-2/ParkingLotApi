@@ -48,5 +48,12 @@ namespace ParkingLotApi.Controllers
             var res = await _parkingLotService.GetByIdAsync(id);
             return StatusCode(StatusCodes.Status200OK, res);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ParkingLot>> PutParkingLot(string id, [FromBody] int capacity)
+        {
+            var res = await _parkingLotService.PutAsync(id, capacity);
+            return StatusCode(StatusCodes.Status200OK, res);
+        }
     }
 }
