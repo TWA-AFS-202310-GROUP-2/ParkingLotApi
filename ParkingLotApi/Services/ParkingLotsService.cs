@@ -43,7 +43,7 @@ public class ParkingLotsService
         return await _parkingLotsRepository.GetParkingLotsByPageIndex(pageIndex, pageSize);
     }
 
-    public async Task<ParkingLot> GetParkingLotListById(string id)
+    public async Task<ParkingLot> GetParkingLotById(string id)
     {
         var parkingLot = await _parkingLotsRepository.GetParkingLotsById(id);
         if (parkingLot == null)
@@ -51,5 +51,17 @@ public class ParkingLotsService
             throw new NoParkingLotException();
         }
         return parkingLot;
+    }
+
+    public async Task<ParkingLot?> UpdateParkingLotById(string id, int newCapacity)
+    {
+        if ( newCapacity< 10)
+        {
+            throw new LowCapacityException();
+        }
+
+        var oldParkingLot = await GetParkingLotById(id);
+        oldParkingLot.Capacity = newCapacity;
+        return await _parkingLotsRepository.PutParkingLot(id, oldParkingLot);
     }
 }

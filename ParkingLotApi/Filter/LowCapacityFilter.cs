@@ -10,7 +10,7 @@ namespace ParkingLotApi.Filter
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Exception is LowCapacityException lessCapacityFilter)
+            if (context.Exception is LowCapacityException)
             {
                 context.Result = new BadRequestResult();
                 context.ExceptionHandled = true;

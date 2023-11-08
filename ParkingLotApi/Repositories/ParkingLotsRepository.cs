@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using ParkingLotApi.Dtos;
 using ParkingLotApi.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ParkingLotApi.Repositories;
 
@@ -47,5 +48,12 @@ public class ParkingLotsRepository : IParkingLotsRepository
         return _dbCollection.Find(doc=>doc.Id ==parkingLotId).FirstOrDefaultAsync();
     }
 
-
+    public async Task<ParkingLot> PutParkingLot(string id,ParkingLot parkingLot)
+    {
+        var options = new FindOneAndReplaceOptions<ParkingLot>
+        {
+            ReturnDocument = ReturnDocument.After
+        };
+        return await _dbCollection.FindOneAndReplaceAsync<ParkingLot>(doc=>doc.Id == id, parkingLot, options);
+    }
 }

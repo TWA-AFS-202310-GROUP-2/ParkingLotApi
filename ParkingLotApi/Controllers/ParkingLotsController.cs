@@ -51,12 +51,23 @@ namespace ParkingLotApi.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.GetParkingLotListById(id));
+                return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.GetParkingLotById(id));
             }
             catch (NoParkingLotException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }
+            catch (FormatException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound);
+            }
+        }
+
+        [HttpPut]
+        [Route("id")]
+        public async Task<ActionResult<ParkingLot>> UpdateParkingLotById(string id, int newCapacity)
+        {
+            return StatusCode(StatusCodes.Status200OK, await _parkingLotsService.UpdateParkingLotById(id, newCapacity));
         }
 
     }
