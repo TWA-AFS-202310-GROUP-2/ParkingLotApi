@@ -30,5 +30,13 @@ namespace ParkingLotApi.Controllers
             await _parkingLotsService.DeleteByNameAsync(parkingLotName);
             return StatusCode(StatusCodes.Status204NoContent);
         }
+
+        [HttpGet]
+        [Route("pageIndex")]
+        public async Task<ActionResult<List<ParkingLot>>> GetParkingLotByPagesize(int pageIndex, int pageSize=15)
+        {
+            return StatusCode(StatusCodes.Status200OK,
+                await _parkingLotsService.GetParkingLotListByPageIndex(pageIndex, pageSize));
+        }
     }
 }

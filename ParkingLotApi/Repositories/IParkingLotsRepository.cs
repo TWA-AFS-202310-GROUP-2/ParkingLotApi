@@ -9,4 +9,6 @@ public interface IParkingLotsRepository
     public Task<ParkingLot> GetParkingLotByName(string parkingLotName);
     public Task<List<ParkingLot>> GetAllParkingLots();
     public Task DeleteParkingLotByName(string parkingLotName);
+    public Task<List<ParkingLot>> GetParkingLotsByPageIndex(int pageIndex, int pageSize = 15);
+
 }

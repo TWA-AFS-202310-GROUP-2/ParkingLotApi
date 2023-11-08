@@ -37,4 +37,10 @@ public class ParkingLotsRepository : IParkingLotsRepository
         return _dbCollection.DeleteOneAsync(doc => doc.Name == parkingLotName);
     }
 
+    public Task<List<ParkingLot>> GetParkingLotsByPageIndex(int pageIndex, int pageSize=15)
+    {
+        return _dbCollection.Find(_ => true).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToListAsync();
+    }
+
+
 }

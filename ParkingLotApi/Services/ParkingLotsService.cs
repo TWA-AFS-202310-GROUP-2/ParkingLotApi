@@ -37,4 +37,9 @@ public class ParkingLotsService
 
         await _parkingLotsRepository.DeleteParkingLotByName(parkingLotName);
     }
+
+    public async Task<List<ParkingLot>> GetParkingLotListByPageIndex(int pageIndex, int pageSize=15)
+    {
+        return await _parkingLotsRepository.GetParkingLotsByPageIndex(pageIndex, pageSize);
+    }
 }
