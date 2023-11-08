@@ -1,3 +1,5 @@
+using ParkingLotApi.Dtos;
+using ParkingLotApi.Repositories;
 using ParkingLotApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,8 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ParkingLotServices>();
+builder.Services.AddSingleton<IParkingLotRerository, ParkingLotRerository>();
+builder.Services.Configure<ParkingLotDatabaseSettings>(builder.Configuration.GetSection("ParkingLotStoreDatabase"));
 
 var app = builder.Build();
 
