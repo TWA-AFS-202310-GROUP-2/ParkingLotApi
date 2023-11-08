@@ -1,0 +1,34 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+@hostname=localhost
+@port=5116
+
+# Company APIS
+## POST /api/parkinglots
+## GET /api/parkinglots
+## GET /api/parkinglots/{name}
+## PUT /api/parkinglots/{name}
+## DELETE /api/parkinglots/{name} 
+
+
+## AC1 Create ParkingLot API 
+POST https://{{hostname}}:{{port}}/api/parkinglots
+Content-Type: application/json; charset=utf-8
+
+## Request body
+{
+  "name": string,
+  "capacity": int,
+  "location": string
+}
+
+## Method:
+# POST /api/parkinglots
+# CreateParkingLot
+
+## Response body:
+### Case1:  Parking Lot Created Success, Return Parking Lot created with Status Created( 201 )
+##{"id":int, "name": string, "capacity": int, "location": string}
+### Case2:  Parking Lot Name Exsiting, Return 400 Bad request
+### capacity<10; name already exists
+### Case3:  Other Bad Reqeust ( Request Body Not Valid ) wrong Parking Lot name
