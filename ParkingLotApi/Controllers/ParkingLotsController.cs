@@ -19,7 +19,19 @@ namespace ParkingLotApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ParkingLotDto>> CreateParkingLot([FromBody] ParkingLotDto parkingLotDto)
         {
+            var res = await _parkingLotService.AddAsync(parkingLotDto);
+            if (res == null)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
             return StatusCode(StatusCodes.Status201Created, await _parkingLotService.AddAsync(parkingLotDto));
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteParkingLot([FromBody] string name)
+        {
+            await _parkingLotService.DeleteAsync(name);
+            return StatusCode(StatusCodes.Status204NoContent);
         }
     }
 }

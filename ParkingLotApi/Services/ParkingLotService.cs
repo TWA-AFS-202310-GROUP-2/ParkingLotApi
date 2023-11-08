@@ -1,7 +1,9 @@
-﻿using ParkingLotApi.Dtos;
+﻿using MongoDB.Driver;
+using ParkingLotApi.Dtos;
 using ParkingLotApi.Exceptions;
 using ParkingLotApi.Models;
 using ParkingLotApi.Repositories;
+using System.Xml.Linq;
 
 namespace ParkingLotApi.Services
 {
@@ -18,7 +20,16 @@ namespace ParkingLotApi.Services
             {
                 throw new InvalidCapacityException();
             }
-            return await parkingLotsRepository.CreateParkingLot(parkingLotDto.ToEntity());
+            var res = await parkingLotsRepository.CreateParkingLot(parkingLotDto.ToEntity());
+            if (res != null)
+            {
+                 return res;
+            }
+            throw new ExistingNameException();
+        }
+        public async Task DeleteAsync(string name)
+        {
+            await parkingLotsRepository.DeleteParkingLot(name);
         }
     }
 }
