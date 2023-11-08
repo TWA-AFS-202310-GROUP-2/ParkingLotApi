@@ -9,6 +9,9 @@ namespace ParkingLotApi.Models
             this.Capacity = capacity;
             this.Location = location;
         }
+
+        public static string CollectionName = "ParkingLot";
+
         public String Id { get; set; }
         public string Name { get; set; }
         public int Capacity { get; set; }
