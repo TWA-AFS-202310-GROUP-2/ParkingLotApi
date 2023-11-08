@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using ParkingLotApi.Dtos;
 using ParkingLotApi.Exceptions;
+using ParkingLotApi.Models;
 using ParkingLotApi.Services;
 
 namespace ParkingLotApi.Controllers
@@ -18,20 +19,26 @@ namespace ParkingLotApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ParkingLotDto>> AddParkingLotAsync([FromBody] ParkingLotDto parkingLotDto)
+        public async Task<ActionResult<ParkingLot>> AddParkingLotAsync([FromBody] ParkingLot parkingLot)
         {
-            return StatusCode(StatusCodes.Status201Created, await _parkingLotsService.AddAsync(parkingLotDto));
+            return StatusCode(StatusCodes.Status201Created, await _parkingLotsService.AddAsync(parkingLot));
         }
 
-        [HttpDelete("{parkingLotName}")]
-        public async Task<ActionResult> DeleteParkingLotAsync(string parkingLotName)
+        [HttpDelete("{parkingLotId}")]
+        public async Task<ActionResult> DeleteParkingLotAsync(string parkingLotId)
         {
-            if (parkingLotName != null)
+            if (parkingLotId != null)
             {
-                await _parkingLotsService.DeleteAsync(parkingLotName);
+                await _parkingLotsService.DeleteAsync(parkingLotId);
                 return StatusCode(StatusCodes.Status204NoContent);
             }
             return StatusCode(StatusCodes.Status404NotFound);
+        }
+
+        [HttpGet]
+        public async Task<List<ParkingLot>> GetParkingLotsFromPageIndexAsync([FromQuery] int? pageIndex)
+        {
+            return await _parkingLotsService.CheckPageIndexAsync(pageIndex);
         }
     }
 }

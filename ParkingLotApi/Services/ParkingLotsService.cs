@@ -13,18 +13,23 @@ namespace ParkingLotApi.Services
         {
             this.parkingRepository = parkingLotsRepository; 
         }
-        public async Task<ParkingLot> AddAsync(ParkingLotDto parkingLotDto)
+        public async Task<ParkingLot> AddAsync(ParkingLot parkingLot)
         {
-            if (parkingLotDto.Capacity < 10)    
+            if (parkingLot.Capacity < 10)    
             {
                 throw new InvalidCapacityException("Invalid capacity exception.");
             }
-            return await parkingRepository.CreateParkingLot(parkingLotDto.ToEntity());
+            return await parkingRepository.CreateParkingLot(parkingLot);
         }
 
-        public async Task DeleteAsync(string name)
+        public async Task DeleteAsync(string id)
         {
-            await parkingRepository.DeleteParkingLot(name);
+            await parkingRepository.DeleteParkingLot(id);
+        }
+
+        public async Task<List<ParkingLot>> CheckPageIndexAsync(int? pageIndex)
+        {
+            return await parkingRepository.CheckPageIndexParkingLot(pageIndex);
         }
     }
 }
