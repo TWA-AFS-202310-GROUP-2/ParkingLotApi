@@ -7,7 +7,7 @@ namespace ParkingLotApi.Services
     {
         public async Task<ParkingLotDto> AddAsync(ParkingLotDto parkingLotDto)
         {
-            if (parkingLotDto.Capacity < 10)
+            if (parkingLotDto.Capacity < 10)    
             {
                 throw new InvalidCapacityException("Invalid capacity exception.");
             }
