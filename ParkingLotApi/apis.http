@@ -1,0 +1,173 @@
+
+@hostname=localhost
+@port=5116
+
+# ParkingLot APIS
+
+
+## AC1 Create ParkingLot API 
+POST https://{{hostname}}:{{port}}/api/parkinglots
+
+### Request:
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "parkinglot1",
+    "capacity": 100,
+    "address": "address1"
+}
+
+### Response:
+Case1: 
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": 1,
+    "name": "parkinglot1",
+    "capacity": 100,
+    "address": "address1"
+}
+
+Case2:
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot name is duplicated"
+}
+
+Case3:
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot capacity is invalid"
+}
+
+Case4:
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot address is invalid"
+}
+
+## AC2 Get ParkingLot API
+GET https://{{hostname}}:{{port}}/api/parkinglots/{parkingLotId}
+
+### Request:
+Content-Type: application/json; charset=utf-8
+
+### Response:
+Case1:
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": 1,
+    "name": "parkinglot1",
+    "capacity": 100,
+    "address": "address1"
+}
+
+Case2:
+HTTP/1.1 404 Not Found
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot is not found"
+}
+
+## AC3 Get ParkingLots API
+GET https://{{hostname}}:{{port}}/api/parkinglots?page=1&pageSize=15
+
+### Request:
+Content-Type: application/json; charset=utf-8
+
+### Response:
+Case1:
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+[
+    {
+        "id": 1,
+        "name": "parkinglot1",
+        "capacity": 100,
+        "address": "address1"
+    },
+    {
+        "id": 2,
+        "name": "parkinglot2",
+        "capacity": 100,
+        "address": "address2"
+    }
+]
+
+Case2:
+HTTP/1.1 404 Not Found
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot is not found"
+}
+
+## AC4 Update ParkingLot API
+PUT https://{{hostname}}:{{port}}/api/parkinglots/{parkingLotId}
+
+### Request:
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "parkinglot1",
+    "capacity": 100,
+    "address": "address1"
+}
+
+### Response:
+Case1:
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": 1,
+    "name": "parkinglot1",
+    "capacity": 100,
+    "address": "address1"
+}
+
+Case2:
+HTTP/1.1 404 Not Found
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot is not found"
+}
+
+Case3:
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot capacity is invalid"
+}
+
+Case4:
+HTTP/1.1 400 Bad Request
+Content-Type: application/json; charset=utf-8
+
+{
+    "message": "ParkingLot address is invalid"
+}
+
+## AC5 Delete ParkingLot API
+DELETE https://{{hostname}}:{{port}}/api/parkinglots/{parkingLotId}
+
+### Request:
+Content-Type: application/json; charset=utf-8
+
+### Response:
+Case1:
+HTTP/1.1 204 No Content
+Content-Type: application/json; charset=utf-8
