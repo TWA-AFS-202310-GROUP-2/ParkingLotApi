@@ -44,10 +44,9 @@ namespace ParkingLotApi.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<ParkingLot> DeleteAsync(string id)
+        public async Task DeleteByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            await parkingLotCollection.DeleteOneAsync(parkingLot => parkingLot.Name == name);
         }
-
     }
 }
