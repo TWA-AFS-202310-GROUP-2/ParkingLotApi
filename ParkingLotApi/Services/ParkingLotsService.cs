@@ -1,16 +1,30 @@
 ﻿using ParkingLotApi.Dtos;
+using ParkingLotApi.Exceptions;
+using ParkingLotApi.Models;
+using ParkingLotApi.Repositories;
 
 namespace ParkingLotApi.Services;
 
 public class ParkingLotsService
 {
-    public async Task<ParkingLotDto> CreateAsync(ParkingLotDto parkingLotDto)
+    private readonly IParkingLotsRepository _parkingLotsRepository;
+
+    public ParkingLotsService(IParkingLotsRepository parkingLotsRepository)
+    {
+        _parkingLotsRepository = parkingLotsRepository;
+    }
+    public async Task<ParkingLot> CreateAsync(ParkingLotDto parkingLotDto)
     {
         if (parkingLotDto.Capacity < 10)
         {
             throw new LowCapacityException();
         }
 
-        return null;
+        var result = await _parkingLotsRepository.GetParkingLotByName(parkingLotDto.Name);
+        if (result != null)
+        {
+            throw new ExistingNameException();
+        }
+        return await _parkingLotsRepository.CreateParkingLot(parkingLotDto.ToEntity());
     }
 }

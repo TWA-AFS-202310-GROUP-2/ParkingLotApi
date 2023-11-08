@@ -2,6 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using ParkingLotApi.Dtos;
 using ParkingLotApi.Exceptions;
+using ParkingLotApi.Models;
 using ParkingLotApi.Services;
 
 namespace ParkingLotApi.Controllers
@@ -17,17 +18,10 @@ namespace ParkingLotApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ParkingLotDto>> CreateParkingLotAsync([FromBody] ParkingLotDto parkingLotDto)
+        public async Task<ActionResult<ParkingLot>> CreateParkingLotAsync([FromBody] ParkingLotDto parkingLotDto)
         {
-            try
-            {
-                return  StatusCode(StatusCodes.Status201Created,await _parkingLotsService.CreateAsync(parkingLotDto));
+            return  StatusCode(StatusCodes.Status201Created,await _parkingLotsService.CreateAsync(parkingLotDto));
 
-            }
-            catch (LowCapacityException ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
     }
