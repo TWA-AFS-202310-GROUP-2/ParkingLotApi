@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ParkingLotApi.Dtos;
+using ParkingLotApi.Services;
+using System.Data;
 
 namespace ParkingLotApi.Controllers
 {
@@ -8,14 +10,23 @@ namespace ParkingLotApi.Controllers
     [Route("[controller]")]
     public class ParkingLotsController : ControllerBase
     {
-        [HttpPost]
-        public async Task<ActionResult<ParkingLot>> CreateParkingLot(ParkingLotDto parkingLotDto)
+        private ParkingLotServices _parkingLotservices;
+        public ParkingLotsController(ParkingLotServices parkingLotServices)
         {
-            if (parkingLotDto == null || parkingLotDto.Capacity <10)
+            this._parkingLotservices = parkingLotServices;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ParkingLot>> CreateParkingLotAsync(ParkingLotDto parkingLotDto)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status201Created, await _parkingLotservices.CreateParkingLotAsync(parkingLotDto));
+            }
+            catch (ArgumentException ex)
             {
                 return BadRequest();
             }
-            return null;
         }
     }
 }
