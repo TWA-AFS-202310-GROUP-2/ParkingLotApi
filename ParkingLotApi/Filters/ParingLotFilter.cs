@@ -27,6 +27,10 @@ namespace ParkingLotApi.Filters
                     context.Result = new BadRequestObjectResult(context.Exception.Message);
                     context.ExceptionHandled = true;
                     break;
+                case PageOrPageSizeOutOfRangeException _:
+                    context.Result = new BadRequestObjectResult(context.Exception.Message);
+                    context.ExceptionHandled = true;
+                    break;
                 // case ParkingLotCapacityIsNotValidException _:
                 //     context.Result = new BadRequestObjectResult(context.Exception.Message);
                 //     context.ExceptionHandled = true;

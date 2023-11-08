@@ -37,5 +37,29 @@ namespace ParkingLotApi.Services
             }
             await this.ParkingLotRepository.DeleteByIdAsync(id);
         }
+
+        public async Task<List<ParkingLot>> GetParkingLotsByPage(int pageIndex, int pageSize)
+        {
+            if (pageIndex < 0 || pageSize < 0)
+            {
+                throw new PageOrPageSizeOutOfRangeException();
+            } else if (pageIndex == 0 && pageSize == 0)
+            {
+                return await this.ParkingLotRepository.GetAllAsync();
+            } else
+            {
+                return await this.ParkingLotRepository.GetByPageAsync(pageIndex, pageSize);
+            }
+        }
+
+        public async Task<ParkingLot> GetParkingLotById(string id)
+        {
+            ParkingLot parkingLot = await this.ParkingLotRepository.GetByIdAsync(id);
+            if (parkingLot == null)
+            {
+                throw new ParkingLotNotFoundException();
+            }
+            return parkingLot;
+        }
     }
 }

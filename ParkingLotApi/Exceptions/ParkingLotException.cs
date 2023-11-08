@@ -24,6 +24,13 @@ namespace ParkingLotApi.ParkingLotExceptions
         }
     }
 
+    public class PageOrPageSizeOutOfRangeException : Exception
+    {
+        public PageOrPageSizeOutOfRangeException(string message = "Page Or PageSize Out Of Range") : base(message)
+        {
+        }
+    }
+
     // public class ParkingLotCapacityIsNotValidException : Exception
     // {
     //     public ParkingLotCapacityIsNotValidException(string message = "ParkingLot Capacity Is Not Valid") : base(message)

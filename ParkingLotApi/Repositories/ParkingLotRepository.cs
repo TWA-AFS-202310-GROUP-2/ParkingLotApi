@@ -37,7 +37,12 @@ namespace ParkingLotApi.Repositories
 
         public async Task<List<ParkingLot>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await parkingLotCollection.Find(parkingLot => true).ToListAsync();
+        }
+
+        public async Task<List<ParkingLot>> GetByPageAsync(int pageIndex, int pageSize)
+        {
+            return await parkingLotCollection.Find(parkingLot => true).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToListAsync();
         }
 
         public async Task<ParkingLot> UpdateAsync(string id, ParkingLot parkingLot)

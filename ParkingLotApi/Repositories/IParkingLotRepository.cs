@@ -8,6 +8,7 @@ public interface IParkingLotRepository
     Task<ParkingLot> GetByIdAsync(string id);
     Task<ParkingLot> GetByNameAsync(string name);
     Task<List<ParkingLot>> GetAllAsync();
+    Task<List<ParkingLot>> GetByPageAsync(int pageIndex, int pageSize);
     Task<ParkingLot> UpdateAsync(string id, ParkingLot parkingLot);
     Task DeleteByNameAsync(string name);
     Task DeleteByIdAsync(string id);
