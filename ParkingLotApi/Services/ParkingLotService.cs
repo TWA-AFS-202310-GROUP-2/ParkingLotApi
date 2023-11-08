@@ -6,7 +6,7 @@
         {
             if (parkingLotRequest.Capacity < 10)
             {
-                throw new ArgumentException();
+                throw new InvalidCapacityException("");
             }
             return new ParkingLot();
         }

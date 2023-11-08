@@ -23,7 +23,7 @@ namespace ParkingLotApi.Controllers
             {
                 return Created("", await parkingLotService.Add(parkingLotRequest));
             }
-            catch (Exception ex)
+            catch (InvalidCapacityException ex)
             {
                 return BadRequest();
             }
