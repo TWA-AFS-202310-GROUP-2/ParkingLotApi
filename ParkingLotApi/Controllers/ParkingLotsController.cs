@@ -35,10 +35,17 @@ namespace ParkingLotApi.Controllers
             return StatusCode(StatusCodes.Status204NoContent);
         }
 
-        [HttpGet("{pageIndex}")]
-        public async Task<ActionResult<List<ParkingLot>>> GetParkingLot(int pageIndex)
+        [HttpGet]
+        public async Task<ActionResult<List<ParkingLot>>> GetParkingLot([FromQuery] int pageIndex)
         {
             var res = await _parkingLotService.GetAsync(pageIndex - 1);
+            return StatusCode(StatusCodes.Status200OK, res);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ParkingLot>> GetParkingLotById(string id)
+        {
+            var res = await _parkingLotService.GetByIdAsync(id);
             return StatusCode(StatusCodes.Status200OK, res);
         }
     }

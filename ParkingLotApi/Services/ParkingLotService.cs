@@ -35,5 +35,10 @@ namespace ParkingLotApi.Services
         {
             return await parkingLotsRepository.GetParkingLot(pageIndex);
         }
+
+        public async Task<ParkingLot> GetByIdAsync(string id)
+        {
+            return await parkingLotsRepository.GetParkingLotById(id);
+        }
     }
 }

@@ -32,5 +32,10 @@ namespace ParkingLotApi.Repositories
         {
             return await _parkingLotCollection.Find(_ => true).Skip(pageIndex * 15).Limit(15).ToListAsync();
         }
+
+        public async Task<ParkingLot> GetParkingLotById(string id)
+        {
+            return await _parkingLotCollection.Find(e => e.Id == id).FirstAsync();
+        }
     }
 }
