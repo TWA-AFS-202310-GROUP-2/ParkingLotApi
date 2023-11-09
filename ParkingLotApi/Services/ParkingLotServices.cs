@@ -25,27 +25,33 @@ namespace ParkingLotApi.Services
 
         public async Task<ParkingLot?> GetByIdAsync (string id)
         {
-            var result = await _parkingLotRerository.GetParkingLotById(id);
-            if (result == null)
-            {
-                throw new NotParkingLotofIdException();
-            }
-            return result;
+            await IsParkingLotExisted(id);
+            return await _parkingLotRerository.GetParkingLotById(id);
         }
 
         public async Task DeleteAsync(string id)
         {
-           await _parkingLotRerository.DeleteParkingLot(id);
+            await IsParkingLotExisted(id);
+            await _parkingLotRerository.DeleteParkingLot(id);
         }
 
         public async Task<ParkingLot?> ReplaceAsync(string id, int newCapacity)
         {
+            await IsParkingLotExisted(id);
             return await _parkingLotRerository.ReplaceParkingLotAsync(id, newCapacity);
         }
 
         public async Task<List<ParkingLot>> GetByPageAsync(int pageIndex, int pageSize)
         {
             return await _parkingLotRerository.GetByPageAsync(pageIndex, pageSize);
+        }
+
+        private async Task IsParkingLotExisted(string id)
+        {
+            if (await _parkingLotRerository.GetParkingLotById(id) == null)
+            {
+                throw new NotParkingLotofIdException();
+            }
         }
     }
 }

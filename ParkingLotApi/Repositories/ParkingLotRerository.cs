@@ -26,26 +26,16 @@ namespace ParkingLotApi.Repositories
 
         public async Task<ParkingLot?> GetParkingLotById(string id)
         {
-            var parkingLotById = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-            return parkingLotById;
+            return  await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
         public async Task DeleteParkingLot(string id)
         {
-            var parkingLotBefore = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-            if (parkingLotBefore == null)
-            {
-                throw new NotParkingLotofIdException();
-            }
             var result = await _parkingLotCollection.DeleteOneAsync(p => p.Id == id);
         }
 
         public async Task<ParkingLot?> ReplaceParkingLotAsync(string id, int newCapacity)
         {
             var parkingLotBefore = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-            if (parkingLotBefore == null)
-            {
-                throw new NotParkingLotofIdException();
-            }
             parkingLotBefore.Capacity = newCapacity;
             await _parkingLotCollection.ReplaceOneAsync(x => x.Id == id, parkingLotBefore);
             var parkingLotAfter = await _parkingLotCollection.Find(x =>x.Id == id).FirstOrDefaultAsync();
