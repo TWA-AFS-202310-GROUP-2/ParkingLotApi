@@ -33,12 +33,12 @@ namespace ParkingLotApi.Services
             return result;
         }
 
-        public async Task<ActionResult<ParkingLot?>> DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
-           return await _parkingLotRerository.DeleteParkingLot(id);
+           await _parkingLotRerository.DeleteParkingLot(id);
         }
 
-        public async Task<ActionResult<ParkingLot?>> ReplaceAsync(string id, int newCapacity)
+        public async Task<ParkingLot?> ReplaceAsync(string id, int newCapacity)
         {
             return await _parkingLotRerository.ReplaceParkingLotAsync(id, newCapacity);
         }

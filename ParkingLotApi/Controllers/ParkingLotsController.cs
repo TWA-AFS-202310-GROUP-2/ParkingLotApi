@@ -48,9 +48,11 @@ namespace ParkingLotApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<ParkingLot?>> DeleteParkingLot(string id)
+        public async Task<ActionResult> DeleteParkingLot(string id)
         {
-            return await _parkingLotservices.DeleteAsync(id);
+            await _parkingLotservices.DeleteAsync(id);
+            return NoContent();
         }
     }
 }
+    

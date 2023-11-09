@@ -29,7 +29,7 @@ namespace ParkingLotApi.Repositories
             var parkingLotById = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             return parkingLotById;
         }
-        public async Task<ParkingLot?> DeleteParkingLot(string id)
+        public async Task DeleteParkingLot(string id)
         {
             var parkingLotBefore = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             if (parkingLotBefore == null)
@@ -37,10 +37,9 @@ namespace ParkingLotApi.Repositories
                 throw new NotParkingLotofIdException();
             }
             var result = await _parkingLotCollection.DeleteOneAsync(p => p.Id == id);
-            return await _parkingLotCollection.Find(p =>p.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<ActionResult<ParkingLot?>> ReplaceParkingLotAsync(string id, int newCapacity)
+        public async Task<ParkingLot?> ReplaceParkingLotAsync(string id, int newCapacity)
         {
             var parkingLotBefore = await _parkingLotCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
             if (parkingLotBefore == null)
